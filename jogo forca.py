@@ -1,0 +1,146 @@
+import random
+def jogar():
+    print("--JOGO DA FORCA--")
+    print("1-Como Jogar ?")
+    print("2-Créditos do criador")
+    print("3-Jogar")
+    op=int(input("Escolha a opção que você deseja:"))
+    jogarr=True
+    while(jogarr):
+        if op == 1:
+            print(instrucoes())
+        elif op==2:
+            print(creditos())
+        elif op==3:
+            print(jogo_da_forca())
+        else:
+            print("Número digitado inválido !!")
+            break
+def jogo_da_forca():
+    nm=input("Digite o nome do jogador:")
+    nm=nm.title()
+    print(f"Seja bem vindo {nm} ao ")
+    print("JOGO DA FORCA DOS GAMES !!")
+    lista_palavras=['the last of us','red dead redemption','minecraft','assassins creed','Elden Ring','Battlefield','Super Mario World','The Witcher']
+    item_aleatorio = random.choice(lista_palavras).upper()
+    tentativas=0
+    max_tentativas=6
+    letras_corretas = set()
+    letras_erradas = set()
+    partes = [
+            """
+             ------
+             |    |
+             |
+             |
+             |
+             |
+            --------
+            """,
+            """
+             ------
+             |    |
+             |    O
+             |
+             |
+             |
+            --------
+            """,
+            """
+             ------
+             |    |
+             |    O
+             |    |
+             |
+             |
+            --------
+            """,
+            """
+             ------
+             |    |
+             |    O
+             |   /|
+             |
+             |
+            --------
+            """,
+            """
+             ------
+             |    |
+             |    O
+             |   /|\\
+             |
+             |
+            --------
+            """,
+            """
+             ------
+             |    |
+             |    O
+             |   /|\\
+             |   /
+             |
+            --------
+            """,
+            """
+             ------
+             |    |
+             |    O
+             |   /|\\
+             |   / \\
+             |
+            --------
+            """
+            ]
+    print(f"Dica: É um jogo com {len(item_aleatorio)} letras.")
+    print(f"\ntentativas: {tentativas}")
+    print(partes[0])
+    linhadaforca=["_"] * len(item_aleatorio)
+    linhadaforca1=" ".join(linhadaforca)
+    jg=True
+    while (jg):
+        print("Palavra:", " ".join(linhadaforca))
+        if letras_erradas:
+            print("\nLetras erradas:", " ".join(sorted(letras_erradas)))
+        letra=input("Digite uma letra: ").upper()
+        if letra in letras_corretas or letra in letras_erradas:
+            print("Você já tentou essa letra. Tente outra.")
+            continue
+        if letra in item_aleatorio:
+            letras_corretas.add(letra)
+        else:
+            letras_erradas.add(letra)
+            tentativas = tentativas + 1
+        linhadaforca = [letra if letra in letras_corretas else '_' for letra in item_aleatorio]
+        print(partes[tentativas])
+        if "_" not in linhadaforca:
+            print(f"\nPARABÉNS, jogador {nm} :) Você acertou o jogo: {item_aleatorio}")
+            break
+        elif tentativas >= max_tentativas:
+            print(partes[-1])
+            print(f"\nGAME OVER :( O jogo era: {item_aleatorio}")
+            break
+def instrucoes():
+    print("===============================INSTRUÇÕES=======================================")
+    print('''o JOGO DA FORCA é um jogo de adivinhação de palavras. Um jogador (a máquina) pensa em uma palavra secreta e o outro(usuário) tenta adivinhr letra por letra.
+Se acertar, a letra aparece nos espaços corretos.
+Se errar, uma parte do "bonequinho" da forca é desenhada.''')
+    print("Como funciona:")
+    print("1-O jogador tenta adivinhar a palavra.")
+    print("2-Acertos revelam letras; erros reduzem tentativas.")
+    print("3-O jogador perde se errar muitas vezes (normalmente 6 chances).")
+    op=input("Para retornar ao menu digite OK:").upper()
+    return jogar()
+def creditos():
+    print("===========================CRÉDITOS AO CRIADOR==================================")
+    print("Está aba foi criada com o intuito de dar os créditos ao criador deste programa(Markos Samuell).\n Que projetou este sistema com a finalidade de criar um jogo simples que permita  O objetivo é entregar um jogo funcional, intuitivo e que desafie o jogador a descobrir a palavra secreta antes que todas as chances acabem.\nSendo projetado este sistema aos cargos do SENAI-CTTI")
+    op=input("Para retornar ao menu digite OK:").upper()
+    return jogar()
+jogar()
+
+
+                    
+                    
+                    
+                    
+
